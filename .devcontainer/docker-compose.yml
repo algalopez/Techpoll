@@ -1,0 +1,9 @@
+services: 
+  app:
+    build: 
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+    ports: 
+      - 9000:9000
+    volumes: 
+      - ..:/app
