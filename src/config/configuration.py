@@ -1,7 +1,7 @@
 import yaml
 import os
 import logging
-from src import registry
+from src.config import registry
 
 
 REGISTRY_NAME = 'app_config'
@@ -18,6 +18,6 @@ def load(filename):
 
 def __read_file(filename):
     current_dir = os.path.dirname(__file__)
-    path = os.path.join(current_dir, '../configuration', filename)
+    path = os.path.join(current_dir, '../../configuration', filename)
     with open(path) as file:
         return yaml.load(file, Loader=yaml.FullLoader)
