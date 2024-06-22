@@ -1,0 +1,5 @@
+FROM flyway/flyway:10-alpine
+
+COPY ./database/conf/flyway.properties /flyway/conf/flyway.conf
+COPY ./database/conf/flyway-pre.properties /flyway/conf/flyway-pre.conf
+COPY ./database/sql/ /flyway/sql/

@@ -1,7 +1,7 @@
-port: 5000
+port: 17301
 database:
   user: user
   password: pass
   host: 127.0.0.1
-  port: 3306
+  port: 17302
   database: techpoll

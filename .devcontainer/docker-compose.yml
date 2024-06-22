@@ -4,6 +4,48 @@ services:
       context: ..
       dockerfile: .devcontainer/Dockerfile
     ports: 
-      - 9000:9000
+      - 17301:5000
     volumes: 
       - ..:/app
+    networks:
+      - techpoll_network
+  db:
+    build: 
+      context: ..
+      dockerfile: .devcontainer/Dockerfile.db
+    container_name: techpoll-db
+    restart: always
+    environment:
+      - MARIADB_ROOT_PASSWORD=pass
+      - MARIADB_DATABASE=techpoll
+      - MARIADB_USER=user
+      - MARIADB_PASSWORD=pass
+      - MARIADB_INITDB_SKIP_TZINFO=1
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "17302:3306"
+    networks:
+      - techpoll_network
+
+  sonarqube:
+    build: 
+      context: ..
+      dockerfile: .devcontainer/Dockerfile.sonar
+    container_name: techpoll-sonar
+    ports:
+      - "17303:9000"
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+    networks:
+      - techpoll_network
+
+volumes:
+  sonarqube_data:
+  sonarqube_extensions:
+  db_data:
+
+networks:
+    techpoll_network:
+        driver: bridge

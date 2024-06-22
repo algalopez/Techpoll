@@ -1,8 +1,5 @@
 FROM python:3.12.4-bookworm
 
-# Install pylint
-RUN pip install pylint
-
 # Configure apt
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get -y install --no-install-recommends apt-utils 2>&1
@@ -16,10 +13,13 @@ RUN apt-get update && apt-get -y install --no-install-recommends apt-utils 2>&1
 RUN mkdir /app
 WORKDIR /app
 
-# Install Python dependencies from requirements.txt if it exists
 COPY ./requirements.txt /app/
 COPY ./ /app/
 RUN if [ -f "requirements.txt" ]; then pip install -r requirements.txt; fi
+
+RUN wget -qO- https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/10.15.0/flyway-commandline-10.15.0-linux-x64.tar.gz | tar xvz && \
+    mv flyway-10.15.0 /flyway && \
+    ln -s /flyway/flyway /usr/local/bin
 
 # Clean up
 RUN apt-get autoremove -y \
@@ -27,7 +27,6 @@ RUN apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
 ENV DEBIAN_FRONTEND=dialog
 
-# Set the default shell to bash rather than sh
 ENV SHELL /bin/bash
 
 # CMD ["bash"]
