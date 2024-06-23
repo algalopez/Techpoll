@@ -1,7 +1,8 @@
 from flask import Flask
 from src.hello import get_hello_rest
 from src.poll import post_results_rest
-from src.config import configuration
+from src.shared import configuration
+from src.shared import database_connection
 
 
 import logging
@@ -14,9 +15,14 @@ def add_resources_endpoints(flask_app):
 def set_logger_format():
     logging.basicConfig(level=logging.INFO, format="%(asctime)s: %(levelname)-8s > %(message)s", datefmt="%I:%M:%S")
 
+def load_database():
+    from src.poll.infrastructure.poll_answer_entity import PollAnswer # noqa
+    database_connection.load()
+
 def start():
     set_logger_format()
     app_config = configuration.load(configuration.APP_CONFIG)
+    load_database()
     flask_app = Flask(__name__)
     flask_app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
     add_resources_endpoints(flask_app)

@@ -1,7 +1,11 @@
+
+
 POST http://127.0.0.1:17301/rest/poll/send-results
 content-type: application/json
 
 {
+    "user": "asdasd",
+    "key": "qweqwe",
     "poll_uuid": "ee25a3bc-0d50-4c4e-85da-4e0d4c8e1aea",
     "answers": [
         {"question_uuid":"ee25a3bc-0d50-4c4e-85da-4e0d4c8e1aea", "value": "asd"},

@@ -17,3 +17,15 @@ CREATE TABLE question_options (
     `question_uuid` CHAR(36) NOT NULL,
     `options` JSON NOT NULL
 );
+
+
+CREATE TABLE poll_answer (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `user` VARCHAR(255) NOT NULL,
+    `key` VARCHAR(255) NOT NULL,
+    `datetime` datetime DEFAULT NOW(),
+    `poll_uuid` CHAR(36) NOT NULL,
+    `question_uuid` CHAR(36) NOT NULL,
+    `value` VARCHAR(255)
+);
+

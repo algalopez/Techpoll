@@ -2,6 +2,6 @@ from dataclasses import dataclass
 from uuid import UUID
 
 @dataclass
-class QuestionResult:
+class QuestionAnswer:
     question_uuid: UUID
     value: str

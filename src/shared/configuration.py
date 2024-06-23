@@ -1,7 +1,7 @@
 import yaml
 import os
 import logging
-from src.config import registry
+from src.shared import registry
 
 
 REGISTRY_NAME = 'app_config'
