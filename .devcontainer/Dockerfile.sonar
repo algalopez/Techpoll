@@ -1,4 +1,4 @@
-FROM sonarqube:8.2-community
+FROM sonarqube:10.6.0-community
 
 COPY ./sonarqube/sonar.properties /opt/sonarqube/conf/
 

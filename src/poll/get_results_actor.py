@@ -6,7 +6,7 @@ from uuid import UUID
 import logging
 
 
-def run(poll_uuid: UUID, key: str) -> int:
+def run(poll_uuid: UUID, key: str) -> Score:
     """
     Get score for a poll and a user
 
@@ -17,15 +17,14 @@ def run(poll_uuid: UUID, key: str) -> int:
     poll: Poll = poll_dao.get_poll(poll_uuid=poll_uuid)
     question_answer = poll_answer_dao.get_poll_answers(user="", key=key, poll_uuid=poll_uuid)
 
-    scores = list(map(lambda answer: calculatePoints(answer=answer, poll=poll), question_answer.answers))
+    scores = list(map(lambda answer: calculate_points(answer=answer, poll=poll), question_answer.answers))
     logging.info(f"scores: {scores}")
     
     score = sum(map(lambda x: x if x is not None else 0, scores))
     return Score(value=score)
 
 
-def calculatePoints(answer: QuestionAnswer, poll: Poll) -> int:
-    print(f"calculating points for {answer}")
+def calculate_points(answer: QuestionAnswer, poll: Poll) -> int:
     matching_question = next(
         (question for question in poll.questions if question.uuid == answer.question_uuid),
         None
@@ -33,7 +32,7 @@ def calculatePoints(answer: QuestionAnswer, poll: Poll) -> int:
     
     if matching_question is None:
         print("no matching question")
-        return None
+        return 0
 
     matching_option = next(
         (option for question_option in matching_question.options for option in question_option.options
@@ -43,6 +42,6 @@ def calculatePoints(answer: QuestionAnswer, poll: Poll) -> int:
     
     if matching_option is None:
         print("no matching option")
-        return None
+        return 0
 
     return matching_option["value"]

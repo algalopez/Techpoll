@@ -21,28 +21,28 @@ def get_poll(poll_uuid: UUID) -> DomainPoll:
 
 
 def __find_poll(session: Session, poll: str) -> DomainPoll:
-    infrastructurePoll: InfrastructurePoll = session.query(InfrastructurePoll).join(InfrastructurePoll.questions).join(
+    infrastructure_poll: InfrastructurePoll = session.query(InfrastructurePoll).join(InfrastructurePoll.questions).join(
         InfrastructurePollQuestion.options).filter(InfrastructurePoll.uuid == poll).first()
-    return __map_to_domain(infrastructurePoll)
+    return __map_to_domain(infrastructure_poll)
 
 
-def __map_to_domain(infrastructurePoll: InfrastructurePoll) -> DomainPoll:
-    return DomainPoll(uuid=infrastructurePoll.uuid,
-                      name=infrastructurePoll.name,
-                      description=infrastructurePoll.description,
-                      questions=[__map_question_to_domain(question) for question in infrastructurePoll.questions])
+def __map_to_domain(infrastructure_poll: InfrastructurePoll) -> DomainPoll:
+    return DomainPoll(uuid=infrastructure_poll.uuid,
+                      name=infrastructure_poll.name,
+                      description=infrastructure_poll.description,
+                      questions=[__map_question_to_domain(question) for question in infrastructure_poll.questions])
 
 
-def __map_question_to_domain(infrastructurePollQuestion: InfrastructurePollQuestion) -> DomainPollQuestions:
-    return DomainPollQuestions(uuid=infrastructurePollQuestion.uuid,
-                               poll_uuid=infrastructurePollQuestion.poll_uuid,
-                               topic=infrastructurePollQuestion.topic,
-                               description=infrastructurePollQuestion.description,
-                               enabled=infrastructurePollQuestion.enabled,
-                               options=[__map_question_options_to_domain(options) for options in infrastructurePollQuestion.options])
+def __map_question_to_domain(infrastructure_poll_question: InfrastructurePollQuestion) -> DomainPollQuestions:
+    return DomainPollQuestions(uuid=infrastructure_poll_question.uuid,
+                               poll_uuid=infrastructure_poll_question.poll_uuid,
+                               topic=infrastructure_poll_question.topic,
+                               description=infrastructure_poll_question.description,
+                               enabled=infrastructure_poll_question.enabled,
+                               options=[__map_question_options_to_domain(options) for options in infrastructure_poll_question.options])
 
 
-def __map_question_options_to_domain(infrastructureQuestionOptions: InfrastructureQuestionOptions) -> DomainPollQuestionOptions:
-    return DomainPollQuestionOptions(id=infrastructureQuestionOptions.id,
-                                     question_uuid=infrastructureQuestionOptions.question_uuid,
-                                     options=infrastructureQuestionOptions.options)
+def __map_question_options_to_domain(infrastructure_question_options: InfrastructureQuestionOptions) -> DomainPollQuestionOptions:
+    return DomainPollQuestionOptions(id=infrastructure_question_options.id,
+                                     question_uuid=infrastructure_question_options.question_uuid,
+                                     options=infrastructure_question_options.options)

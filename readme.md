@@ -31,6 +31,10 @@ python3 app.py
 
 shhh, close your eyes
 
+## Sonarqube
+
+sonar-scanner -Dsonar.login=<token>
+
 ## Other
 
 docker build -f .devcontainer\Dockerfile . -t asd  

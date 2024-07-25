@@ -12,7 +12,7 @@ BASE = declarative_base()
 
 
 def load():
-    logging.info(f"Loading database engine")
+    logging.info("Loading database engine")
 
     database_config = registry.get(configuration.REGISTRY_NAME).get('database')
 

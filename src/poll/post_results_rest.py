@@ -13,19 +13,19 @@ post_results_resource = Blueprint('post_results_resource', __name__)
 def send_results():
     request_data = request.get_json()
     logging.info("request: " + str(request_data))
-    pollResult: PollAnswer = mapToPollResult(request_data)
-    logging.info("pollResult: " + str(pollResult))
-    return jsonpickle.encode(post_results_actor.run(pollResult), unpicklable=False)
+    poll_result: PollAnswer = map_to_poll_result(request_data)
+    logging.info("poll_result: " + str(poll_result))
+    return jsonpickle.encode(post_results_actor.run(poll_result), unpicklable=False)
 
-def mapToPollResult(request_data) -> PollAnswer: 
+def map_to_poll_result(request_data) -> PollAnswer: 
     user = request_data['user']
     key = request_data['key']
     datetime = datetimeLib.now(timezoneLib.utc)
     poll_uuid = UUID(request_data['poll_uuid'])
-    answers = [mapToQuestionAnswer(answer) for answer in request_data['answers']]
+    answers = [map_to_question_answer(answer) for answer in request_data['answers']]
     return PollAnswer(user=user, key=key, datetime=datetime, poll_uuid=poll_uuid, answers=answers)
 
-def mapToQuestionAnswer(answer) -> QuestionAnswer:
+def map_to_question_answer(answer) -> QuestionAnswer:
     return QuestionAnswer(question_uuid=UUID(answer['question_uuid']), value=answer['value'])
 
 

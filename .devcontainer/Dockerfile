@@ -21,6 +21,12 @@ RUN wget -qO- https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/10.
     mv flyway-10.15.0 /flyway && \
     ln -s /flyway/flyway /usr/local/bin
 
+RUN wget -O /tmp/sonar-scanner-cli.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-6.1.0.4477-linux-x64.zip && \
+    unzip /tmp/sonar-scanner-cli.zip -d /opt && \
+    rm /tmp/sonar-scanner-cli.zip
+
+ENV PATH="/opt/sonar-scanner-6.1.0.4477-linux-x64/bin:${PATH}"
+
 # Clean up
 RUN apt-get autoremove -y \
     && apt-get clean -y \

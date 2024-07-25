@@ -14,10 +14,10 @@ def get_poll_answers(user: str, key: str, poll_uuid: str) -> DomainPollAnswer:
     return __find_poll_answers(session=session, user=user, key=key, poll_uuid=poll_uuid)
 
 
-def create_poll_answers(pollAnswer: DomainPollAnswer) -> DomainPollAnswer:
+def create_poll_answers(poll_answer: DomainPollAnswer) -> DomainPollAnswer:
     session: Session = database_connection.get_session()
     try:
-        return __create_poll_answers(session=session, pollAnswer=pollAnswer)
+        return __create_poll_answers(session=session, poll_answer=poll_answer)
     except Exception:
         session.rollback()
         raise
@@ -26,8 +26,6 @@ def create_poll_answers(pollAnswer: DomainPollAnswer) -> DomainPollAnswer:
 
 
 def __find_poll_answers(session: Session, user: str, key: str, poll_uuid: str) -> DomainPollAnswer:
-    # infrastructurePollAnswers: List[InfrastructurePollAnswer] = session.query(
-    #     InfrastructurePollAnswer).filter(InfrastructurePollAnswer.question_uuid == poll).all()
     print(f"key = {key}, poll = {poll_uuid}")
     subquery = session.query(
         InfrastructurePollAnswer.key,
@@ -51,25 +49,25 @@ def __find_poll_answers(session: Session, user: str, key: str, poll_uuid: str) -
         InfrastructurePollAnswer.poll_uuid == poll_uuid
     ).all()
 
-    domainQuestionAnswers: List[DomainQuestionAnswer] = [__map_to_domain(
+    domain_question_answers: List[DomainQuestionAnswer] = [__map_to_domain(
         infrastructurePollAnswer) for infrastructurePollAnswer in latest_answers]
 
-    return DomainPollAnswer(user=user, key=key, datetime=None, poll_uuid=poll_uuid, answers=domainQuestionAnswers)
+    return DomainPollAnswer(user=user, key=key, datetime=None, poll_uuid=poll_uuid, answers=domain_question_answers)
 
 
 def __map_to_domain(self) -> DomainQuestionAnswer:
     return DomainQuestionAnswer(question_uuid=self.question_uuid, value=self.value)
 
 
-def __create_poll_answers(session: Session, pollAnswer: DomainPollAnswer) -> DomainPollAnswer:
-    infrastructurePollAnswers: List[InfrastructurePollAnswer] = [__map_to_infrastructure(
-        user=pollAnswer.user, key=pollAnswer.key, datetime=pollAnswer.datetime, poll_uuid=pollAnswer.poll_uuid, domainQuestionAnswer=answer) for answer in pollAnswer.answers]
+def __create_poll_answers(session: Session, poll_answer: DomainPollAnswer) -> DomainPollAnswer:
+    infrastructure_poll_answers: List[InfrastructurePollAnswer] = [__map_to_infrastructure(
+        user=poll_answer.user, key=poll_answer.key, datetime=poll_answer.datetime, poll_uuid=poll_answer.poll_uuid, domain_question_answer=answer) for answer in poll_answer.answers]
 
-    session.add_all(infrastructurePollAnswers)
+    session.add_all(infrastructure_poll_answers)
     session.commit()
-    return pollAnswer
+    return poll_answer
 
 
-def __map_to_infrastructure(user: str, key: str, datetime: datetime, poll_uuid: UUID, domainQuestionAnswer: DomainQuestionAnswer) -> InfrastructurePollAnswer:
-    return InfrastructurePollAnswer(user=user, key=key, datetime=datetime.strftime('%Y-%m-%d %H:%M:%S'), poll_uuid=str(poll_uuid), question_uuid=domainQuestionAnswer.question_uuid, value=domainQuestionAnswer.value)
+def __map_to_infrastructure(user: str, key: str, datetime: datetime, poll_uuid: UUID, domain_question_answer: DomainQuestionAnswer) -> InfrastructurePollAnswer:
+    return InfrastructurePollAnswer(user=user, key=key, datetime=datetime.strftime('%Y-%m-%d %H:%M:%S'), poll_uuid=str(poll_uuid), question_uuid=domain_question_answer.question_uuid, value=domain_question_answer.value)
 
