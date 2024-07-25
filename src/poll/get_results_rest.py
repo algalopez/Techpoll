@@ -9,10 +9,9 @@ get_results_resource = Blueprint('get_results_resource', __name__)
 
 @get_results_resource.route('/rest/poll/get-results', methods=['GET'])
 def send_results():
-    poll = request.args.get('poll')
+    poll_uuid = request.args.get('poll')
     key = request.args.get('key')
-    logging.info(f"request: {poll} - {key}")
-    poll_results = get_results_actor.run(poll, key)
-    print(poll_results)
+    logging.info(f"request: {poll_uuid} - {key}")
+    poll_results = get_results_actor.run(poll_uuid, key)
     return jsonpickle.encode(poll_results, unpicklable=False)
 

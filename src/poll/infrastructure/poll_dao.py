@@ -1,7 +1,5 @@
-from typing import List
-from sqlalchemy.orm import Session, aliased
+from sqlalchemy.orm import Session
 from uuid import UUID
-from datetime import datetime
 from src.poll.infrastructure.poll_entity import Poll as InfrastructurePoll
 from src.poll.infrastructure.poll_entity import PollQuestion as InfrastructurePollQuestion
 from src.poll.infrastructure.poll_entity import QuestionOptions as InfrastructureQuestionOptions

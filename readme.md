@@ -3,7 +3,7 @@
 
 **Silly poll**
 
-Give your opinion and learn that that it is all wrong xD
+Give your opinion and learn that it is all wrong xD
 
 ## Requirements
 
@@ -15,20 +15,23 @@ Give your opinion and learn that that it is all wrong xD
 Start the dev container  
 Perform the database migration  
 Execute the app  
-Open http://localhost:17301/rest/hello/ to verify that it works
+Open http://localhost:17301/rest/hello/ to verify that it works  
 ... TBC
 
 ### Database migration
 
+flyway -configFiles=database/conf/flyway.properties clean migrate  
+flyway -configFiles=database/conf/flyway-techpoll.properties clean migrate  
 
 ### App execution
 
+python3 app.py
 
 ## Test
 
+shhh, close your eyes
 
 ## Other
-
 
 docker build -f .devcontainer\Dockerfile . -t asd  
 docker run asd  
@@ -36,8 +39,4 @@ docker run asd
 docker-compose -f .\.devcontainer\docker-compose.yml up --build  
 
 docker exec -ti devcontainer-app-1 /bin/bash  
-
-
-flyway -configFiles=database/conf/flyway.properties clean migrate
-flyway -configFiles=database/conf/flyway-techpoll.properties clean migrate
 

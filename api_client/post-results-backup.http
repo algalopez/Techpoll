@@ -4,7 +4,7 @@ content-type: application/json
 {
     "user": "asdasd",
     "key": "qweqwe",
-    "poll_uuid": "ee25a3bc-0d50-4c4e-85da-4e0d4c8e1aea",
+    "poll_uuid": "3f17af9b-8cc8-4a76-8bc3-2affcf14c099",
     "answers": [
         {"question_uuid":"ee25a3bc-0d50-4c4e-85da-4e0d4c8e1aea", "value": "asd"},
         {"question_uuid":"1e25a3bc-0d50-4c4e-85da-4e0d4c8e1aea", "value": "qwe"}

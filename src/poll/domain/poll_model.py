@@ -6,7 +6,7 @@ from typing import List
 class PollQuestionOptions:
     id: int
     question_uuid: UUID
-    options: dict
+    options: list
 
 @dataclass
 class PollQuestions:

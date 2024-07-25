@@ -1,9 +1,12 @@
 from src.poll.domain.poll_model import Poll
-from src.poll.infrastructure import poll_dao
+from src.poll.domain.poll_answer_model import QuestionAnswer
+from src.poll.infrastructure import poll_dao, poll_answer_dao
+from src.poll.domain.score_model import Score
 from uuid import UUID
+import logging
 
 
-def run(poll: UUID, key: str) -> Poll:
+def run(poll_uuid: UUID, key: str) -> int:
     """
     Get score for a poll and a user
 
@@ -11,5 +14,35 @@ def run(poll: UUID, key: str) -> Poll:
     :param key: The user key
     :return: The list
     """
-    return poll_dao.get_poll(poll_uuid=poll)
-    # return PollResults(poll_uuid=poll, key=key)
+    poll: Poll = poll_dao.get_poll(poll_uuid=poll_uuid)
+    question_answer = poll_answer_dao.get_poll_answers(user="", key=key, poll_uuid=poll_uuid)
+
+    scores = list(map(lambda answer: calculatePoints(answer=answer, poll=poll), question_answer.answers))
+    logging.info(f"scores: {scores}")
+    
+    score = sum(map(lambda x: x if x is not None else 0, scores))
+    return Score(value=score)
+
+
+def calculatePoints(answer: QuestionAnswer, poll: Poll) -> int:
+    print(f"calculating points for {answer}")
+    matching_question = next(
+        (question for question in poll.questions if question.uuid == answer.question_uuid),
+        None
+    )
+    
+    if matching_question is None:
+        print("no matching question")
+        return None
+
+    matching_option = next(
+        (option for question_option in matching_question.options for option in question_option.options
+         if option["name"] == answer.value),
+        None
+    )
+    
+    if matching_option is None:
+        print("no matching option")
+        return None
+
+    return matching_option["value"]
