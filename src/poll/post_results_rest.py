@@ -1,5 +1,4 @@
-from src.poll.domain.question_answer_model import QuestionAnswer
-from src.poll.domain.poll_answer_model import PollAnswer
+from src.poll.domain.poll_answer_model import PollAnswer, QuestionAnswer
 from flask import Blueprint, request
 from src.poll import post_results_actor
 from uuid import UUID
@@ -23,10 +22,10 @@ def mapToPollResult(request_data) -> PollAnswer:
     key = request_data['key']
     datetime = datetimeLib.now(timezoneLib.utc)
     poll_uuid = UUID(request_data['poll_uuid'])
-    answers = [mapToQuestionResult(answer) for answer in request_data['answers']]
+    answers = [mapToQuestionAnswer(answer) for answer in request_data['answers']]
     return PollAnswer(user=user, key=key, datetime=datetime, poll_uuid=poll_uuid, answers=answers)
 
-def mapToQuestionResult(answer) -> QuestionAnswer:
+def mapToQuestionAnswer(answer) -> QuestionAnswer:
     return QuestionAnswer(question_uuid=UUID(answer['question_uuid']), value=answer['value'])
 
 

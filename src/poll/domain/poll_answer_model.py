@@ -1,8 +1,13 @@
-from src.poll.domain.question_answer_model import QuestionAnswer
 from dataclasses import dataclass, field
 from uuid import UUID
 from typing import List
 from datetime import datetime
+
+@dataclass
+class QuestionAnswer:
+    question_uuid: UUID
+    value: str
+
 
 @dataclass
 class PollAnswer:
@@ -11,3 +16,4 @@ class PollAnswer:
     datetime: datetime
     poll_uuid: UUID
     answers: List[QuestionAnswer] = field(default_factory=list)
+

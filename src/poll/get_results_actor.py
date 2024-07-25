@@ -1,13 +1,15 @@
-from src.poll.infrastructure import poll_answer_dao
-from src.poll.domain.poll_answer_model import PollAnswer
+from src.poll.domain.poll_model import Poll
+from src.poll.infrastructure import poll_dao
+from uuid import UUID
 
 
-def run(request: PollAnswer):
+def run(poll: UUID, key: str) -> Poll:
     """
-    Get results published by a user
+    Get score for a poll and a user
 
-    :param request: A list id
+    :param poll: The poll uuid
+    :param key: The user key
     :return: The list
     """
-    poll_answer_dao.create_poll_answers()
-    return hello.Hello(name=request)
+    return poll_dao.get_poll(poll_uuid=poll)
+    # return PollResults(poll_uuid=poll, key=key)

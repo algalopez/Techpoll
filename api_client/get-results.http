@@ -1,0 +1,4 @@
+
+
+GET http://127.0.0.1:17301/rest/poll/get-results?poll=3f17af9b-8cc8-4a76-8bc3-2affcf14c099&key=qwe
+content-type: application/json

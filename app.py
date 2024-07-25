@@ -1,6 +1,6 @@
 from flask import Flask
 from src.hello import get_hello_rest
-from src.poll import post_results_rest
+from src.poll import post_results_rest, get_results_rest
 from src.shared import configuration
 from src.shared import database_connection
 
@@ -11,6 +11,7 @@ import logging
 def add_resources_endpoints(flask_app):
     flask_app.register_blueprint(get_hello_rest.get_hello_resource)
     flask_app.register_blueprint(post_results_rest.post_results_resource)
+    flask_app.register_blueprint(get_results_rest.get_results_resource)
 
 def set_logger_format():
     logging.basicConfig(level=logging.INFO, format="%(asctime)s: %(levelname)-8s > %(message)s", datefmt="%I:%M:%S")

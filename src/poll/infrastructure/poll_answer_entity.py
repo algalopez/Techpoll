@@ -4,7 +4,6 @@ from typing import List
 from sqlalchemy import Column, Unicode, Integer, String, DateTime
 from sqlalchemy.orm import relationship
 
-from src.poll.domain.question_answer_model import QuestionAnswer as ModelQuestionAnswer
 from src.shared.database_connection import BASE
 
 @dataclass

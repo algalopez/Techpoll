@@ -4,7 +4,7 @@ from uuid import UUID
 from datetime import datetime
 from src.poll.infrastructure.poll_answer_entity import PollAnswer as InfrastructurePollAnswer
 from src.poll.domain.poll_answer_model import PollAnswer as DomainPollAnswer
-from src.poll.domain.question_answer_model import QuestionAnswer as DomainQuestionAnswer
+from src.poll.domain.poll_answer_model import QuestionAnswer as DomainQuestionAnswer
 from src.shared import database_connection
 
 
