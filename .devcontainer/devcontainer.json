@@ -2,5 +2,15 @@
     "name": "techpoll",
     "dockerComposeFile": "docker-compose.yml",
     "service": "app",
-    "workspaceFolder": "/app"
+    "workspaceFolder": "/app",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "humao.rest-client",
+                "ms-python.python",
+                "ms-python.autopep8"
+            ]
+        }
+    },
+
 }

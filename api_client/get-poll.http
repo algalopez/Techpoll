@@ -1,0 +1,4 @@
+
+
+GET http://127.0.0.1:5000/rest/poll/get-poll?poll=3f17af9b-8cc8-4a76-8bc3-2affcf14c099
+content-type: application/json

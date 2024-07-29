@@ -1,4 +1,4 @@
 
-GET http://127.0.0.1:17301/rest/hello/gambaro
+GET http://127.0.0.1:5000/rest/hello/gambaro
 content-type: application/json
 

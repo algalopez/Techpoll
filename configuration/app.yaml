@@ -1,4 +1,4 @@
-port: 17301
+port: 5000
 database:
   user: user
   password: pass
