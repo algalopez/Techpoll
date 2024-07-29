@@ -3,6 +3,7 @@ from src.hello import get_hello_rest
 from src.poll import post_results_rest, get_results_rest, get_poll_rest
 from src.shared import configuration
 from src.shared import database_connection
+from flask_cors import CORS
 
 
 import logging
@@ -26,6 +27,7 @@ def start():
     app_config = configuration.load(configuration.APP_CONFIG)
     load_database()
     flask_app = Flask(__name__)
+    CORS(flask_app)
     flask_app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
     add_resources_endpoints(flask_app)
     flask_app.run(host='0.0.0.0', port=app_config.get('port'), debug=True)

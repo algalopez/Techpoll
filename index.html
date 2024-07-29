@@ -93,7 +93,6 @@
                     topic: "Systems",
                     description: "Windows vs Linux vs Mac",
                     enabled: true,
-                    //options: ["Windows", "Linux", "Mac"]
                     options: [{name: "Windows"}, {name: "Linux"}, {name: "Mac"}]
                     },
                     {
@@ -111,13 +110,14 @@
         }
         function getRealData(server) {
             $.ajax({
-                url: `http://localhost:17301/rest/poll/get-poll?poll=3f17af9b-8cc8-4a76-8bc3-2affcf14c099`,
+                url: `http://192.168.4.21:17301/rest/poll/get-poll?poll=3f17af9b-8cc8-4a76-8bc3-2affcf14c099`,
                 type: 'GET',
                 contentType: 'application/json',
                 success: function(response) {
-                    console.log('Response: ', response);
-                    createPollLayout(response);
-                    return response
+                    // console.log('Response: ', response);
+                    var jsonObject = JSON.parse(response);
+                    createPollLayout(jsonObject);
+                    return jsonObject
                 },
                 error: function(xhr, status, error) {
                     console.error('Error:', error);
@@ -130,6 +130,7 @@
             const server = urlParams.get('server');
             if (server) {
                 getRealData(server);
+                return;
             }
             
             getFakeData();
@@ -171,6 +172,7 @@
         }
 
         function createPollLayout(result) {
+            console.log('Response: ', result);
             $('#poll-title').html(result.name);
             createQuestionCards(result.questions);
         }
@@ -213,7 +215,7 @@
             printPollResult(pollResult);
 
             $.ajax({
-                url: 'http://localhost:17301/rest/poll/send-results',
+                url: 'http://192.168.4.21:17301/rest/poll/send-results',
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(pollResult),
