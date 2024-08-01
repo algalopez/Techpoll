@@ -8,7 +8,7 @@ content-type: application/json
     "key": "qweqwe",
     "poll_uuid": "3f17af9b-8cc8-4a76-8bc3-2affcf14c099",
     "answers": [
-        {"question_uuid":"ee25a3bc-0d50-4c4e-85da-4e0d4c8e1aea", "value": "Linux"},
+        {"question_uuid":"ee25a0bc-0d50-4c4e-85da-4e0d4c8e1aea", "value": "Linux"},
         {"question_uuid":"cc98e055-7924-4f8f-bbbb-cb3e814a89a0", "value": "Android"}
     ]
 }

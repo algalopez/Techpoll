@@ -32,16 +32,15 @@ def calculate_points(answer: QuestionAnswer, poll: Poll) -> int:
     
     if matching_question is None:
         print("no matching question")
-        return 0
+        return -1
 
     matching_option = next(
-        (option for question_option in matching_question.options for option in question_option.options
-         if option["name"] == answer.value),
+        (option for option in matching_question.options if option.name == answer.value),
         None
     )
     
     if matching_option is None:
         print("no matching option")
-        return 0
+        return -1
 
-    return matching_option["value"]
+    return matching_option.value

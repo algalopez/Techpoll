@@ -26,6 +26,6 @@ def map_to_poll_result(request_data) -> PollAnswer:
     return PollAnswer(user=user, key=key, datetime=datetime, poll_uuid=poll_uuid, answers=answers)
 
 def map_to_question_answer(answer) -> QuestionAnswer:
-    return QuestionAnswer(question_uuid=UUID(answer['question_uuid']), value=answer['value'])
+    return QuestionAnswer(question_uuid=UUID(answer['question_uuid']), value=answer.get('value', None))
 
 

@@ -26,7 +26,7 @@ class PollQuestion(BASE):
     topic = Column(Unicode, nullable=False)
     description = Column(Unicode, nullable=False)
     enabled = Column(Boolean, default=True)
-    options = relationship('QuestionOptions', backref='question', lazy=False)
+    options = relationship('QuestionOptions', backref='question', uselist=False, lazy=False)
     def __repr__(self):
         return (f"InfrastructurePollQuestion(uuid='{self.uuid}', poll_uuid='{self.poll_uuid}', "
                 f"topic='{self.topic}', description='{self.description}', "

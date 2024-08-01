@@ -20,7 +20,6 @@ def run(poll_uuid: UUID) -> Score:
 
 def override_option_values_to_none(poll: Poll) -> Poll:
     for question in poll.questions:
-        for option_group in question.options:
-            for option in option_group.options:
-                option['value'] = None
+        for option in question.options:
+            option.value = None
     return poll

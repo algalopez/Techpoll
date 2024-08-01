@@ -4,8 +4,8 @@ from src.poll.infrastructure.poll_entity import Poll as InfrastructurePoll
 from src.poll.infrastructure.poll_entity import PollQuestion as InfrastructurePollQuestion
 from src.poll.infrastructure.poll_entity import QuestionOptions as InfrastructureQuestionOptions
 from src.poll.domain.poll_model import Poll as DomainPoll
-from src.poll.domain.poll_model import PollQuestions as DomainPollQuestions
-from src.poll.domain.poll_model import PollQuestionOptions as DomainPollQuestionOptions
+from src.poll.domain.poll_model import PollQuestion as DomainPollQuestions
+from src.poll.domain.poll_model import PollQuestionOption as DomainPollQuestionOptions
 from src.shared import database_connection
 
 
@@ -39,10 +39,13 @@ def __map_question_to_domain(infrastructure_poll_question: InfrastructurePollQue
                                topic=infrastructure_poll_question.topic,
                                description=infrastructure_poll_question.description,
                                enabled=infrastructure_poll_question.enabled,
-                               options=[__map_question_options_to_domain(options) for options in infrastructure_poll_question.options])
+                               options=__map_question_options_to_domain(infrastructure_poll_question.options))
 
 
-def __map_question_options_to_domain(infrastructure_question_options: InfrastructureQuestionOptions) -> DomainPollQuestionOptions:
-    return DomainPollQuestionOptions(id=infrastructure_question_options.id,
+def __map_question_options_to_domain(infrastructure_question_options: InfrastructureQuestionOptions) -> list[DomainPollQuestionOptions]:
+    return [DomainPollQuestionOptions(id=infrastructure_question_options.id,
                                      question_uuid=infrastructure_question_options.question_uuid,
-                                     options=infrastructure_question_options.options)
+                                     name=option['name'],
+                                     value=option['value'],
+                                     ) for option in infrastructure_question_options.options]
+

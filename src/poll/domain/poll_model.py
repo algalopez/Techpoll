@@ -3,23 +3,24 @@ from uuid import UUID
 from typing import List
 
 @dataclass
-class PollQuestionOptions:
+class PollQuestionOption:
     id: int
     question_uuid: UUID
-    options: list
+    name: str
+    value: str
 
 @dataclass
-class PollQuestions:
+class PollQuestion:
     uuid: UUID
     poll_uuid: UUID
     topic: str
     description: str
     enabled: bool
-    options: List[PollQuestionOptions]
+    options: List[PollQuestionOption]
 
 @dataclass
 class Poll:
     uuid: UUID
     name: str
     description: str
-    questions: List[PollQuestions]
+    questions: List[PollQuestion]
