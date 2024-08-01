@@ -56,7 +56,7 @@ INSERT INTO question_options (`question_uuid`, `options`) VALUES
 ('f963959c-5f54-4440-9a52-1e5f7fdb8065', '[{"name": "SRP", "value": 1}, {"name": "OCP", "value": 3}, {"name": "LSP", "value": 1}, {"name": "ISP", "value": 2}, {"name": "DIP", "value": 1}]'),
 ('6856c9ef-7063-4dd8-93a1-67f2664c62d7', '[{"name": "High cohesion", "value": 2}, {"name": "Low coupling", "value": 1}]'),
 ('98214da8-9d88-4893-a6bf-d8592e5c733d', '[{"name": "SOLID", "value": 1}, {"name": "GRASP", "value": 2}]'),
-('3fd60c7d-2774-41bd-bdd0-eff2d206f83a', '[{"name": "Mockey patching", "value": 1}, {"name": "Dependency Injection", "value": 2}]'),
+('3fd60c7d-2774-41bd-bdd0-eff2d206f83a', '[{"name": "Monkey patching", "value": 1}, {"name": "Dependency Injection", "value": 2}]'),
 ('b634e877-7164-4d6a-98e5-e85cc8678a3f', '[{"name": "Strong", "value": 2}, {"name": "Weak", "value": 1}]'),
 ('f5a91114-635f-4bed-8fe2-e6df430c51a4', '[{"name": "Static", "value": 2}, {"name": "Dynamic", "value": 1}]'),
 ('0fa5af98-e884-41b0-aa9f-6b1d5c91c808', '[{"name": "Spaces", "value": 2}, {"name": "Tabs", "value": 0}]'),
