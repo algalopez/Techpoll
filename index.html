@@ -126,8 +126,12 @@
                 url: `${server}/rest/poll/get-poll?poll=3f17af9b-8cc8-4a76-8bc3-2affcf14c099`,
                 type: 'GET',
                 contentType: 'application/json',
+                headers: {
+                    'ngrok-skip-browser-warning': 'asd',
+                }
             })    
             .then(function(response) {
+                // console.log(`response: ${response}`)
                 var jsonObject = JSON.parse(response);
                 return jsonObject;
             })
@@ -199,6 +203,9 @@
                 url: `${server}/rest/poll/get-results?poll=3f17af9b-8cc8-4a76-8bc3-2affcf14c099&key=${password}`,
                 type: 'GET',
                 contentType: 'application/json',
+                headers: {
+                    'ngrok-skip-browser-warning': 'asd',
+                },
             })    
             .then(function(response) {
                 var jsonObject = JSON.parse(response);
@@ -263,6 +270,9 @@
                 url: `${server}/rest/poll/send-results`,
                 type: 'POST',
                 contentType: 'application/json',
+                headers: {
+                    'ngrok-skip-browser-warning': 'asd',
+                },
                 data: JSON.stringify(pollResult),
                 success: function(response) {
                     // console.log('Response: ',response);
